@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Hotdog</title>
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #9c4083;
+      margin: 0;
+    }
+
+    h1 {
+      color: white;
+      font-family: 'Lato', sans-serif;
+      margin-bottom: 20px;
+      font-size: 3rem;
+    }
+
+    .countdown {
+      color: white;
+      font-family: 'Lato', sans-serif;
+      font-size: 5rem;
+      margin-bottom: 40px;
+      animation: pulse 1s ease-in-out infinite;
+      text-shadow: 0 0 10px rgba(255,255,255,0.6);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.9; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .hotdog {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .bread {
+      width: 400px;
+      height: 60px;
+      background-color: #f9cb38;
+    }
+
+    .bread:nth-child(1) {
+      border-bottom: 15px solid #e6b01c;
+      border-radius: 100px 100px 0 0;
+    }
+
+    .bread:nth-child(3) {
+      border-top: 15px solid #e6b01c;
+      border-radius: 0 0 100px 100px;
+    }
+
+    .sauce {
+      width: 500px;
+      height: 75px;
+      background-image: linear-gradient(to bottom, #ee5d1e 50%, #cd4314 51%);
+      border-radius: 50px;
+    }
+
+    .plate {
+      position: absolute;
+      bottom: -65px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: -1;
+      width: 700px;
+      height: 250px;
+      background: #37bbd4;
+      border-radius: 100%;
+      box-shadow: 0 10px 0 2px rgba(0,0,0,.15)
+    }
+
+    .plate:after {
+      content: "";
+      width: 80%;
+      height: 70%;
+      border: 2px solid #fff;
+      border-radius: 100%;
+    }
+
+    .table {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -9999;
+      width: 100%;
+      height: 55vh;
+      background-color: #ed71a3;
+    }
+
+    .credits {
+      position: fixed;
+      bottom: 0;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .credits a {
+      color: #fff;
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 2px solid #9c4083;
+    }
+  </style>
+</head>
+<body>
+  <h1>HOTDOG NEDTÆLLING</h1>
+  <div class="countdown" id="countdown">00:00:00</div>
+
+  <div class="hotdog">
+    <div class="bread"></div>
+    <div class="sauce"></div>
+    <div class="bread"></div>
+    <div class="plate"></div>
+  </div>
+  <div class="table"></div>
+
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      const target = new Date();
+      target.setHours(11, 30, 0, 0);
+      if (now > target) {
+        target.setDate(target.getDate() + 1);
+      }
+
+      const diff = target - now;
+      const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+      const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+      const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+
+      document.getElementById("countdown").textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
+
