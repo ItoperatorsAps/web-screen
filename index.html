@@ -1,7 +1,30 @@
 <html>
-	<body>
-		<iframe src="hotdog.html" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
-		    Your browser doesn't support iframes
-		</iframe>
-	</body>
+<body onload="load()">
+<iframe src="fredag.html"
+        style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+    Your browser doesn't support iframes
+</iframe>
+</body>
+<script>
+    function load() {
+        addTimestampToIframe();
+        setTimeout(() => {
+            refreshPage();
+        }, 300000); // Refresh every 5 minutes
+    }
+
+    function refreshPage() {
+        window.location.reload();
+    }
+
+    function addTimestampToIframe() {
+        const iframe = document.querySelector('iframe');
+        const currentTime = new Date().toISOString();
+        const url = new URL(iframe.src, window.location.href);
+        url.searchParams.set('time', currentTime);
+        iframe.src = url.toString();
+    }
+
+
+</script>
 </html>
